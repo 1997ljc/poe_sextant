@@ -3,9 +3,8 @@ import time
 import keyboard as kb
 import random
 import pyperclip
-
 import tkinter as tk
-from tkinter import ttk
+
 
 def sextant_filter():
     list = [ "传奇怪物掉落腐化", "地图首领由守卫守护", "盗贼", "哈尔", "阻灵","额外的传奇","菌潮遭遇战",
@@ -86,7 +85,7 @@ def show_window1():
     window1 = tk.Toplevel(root)
     window1.title("Window 1")
     set_window(300,200,window1)
-    label1 = ttk.Label(window1, text="鼠标放到守望石位置！")
+    label1 = tk.ttk.Label(window1, text="鼠标放到守望石位置！")
     label1.pack()
 
     def check_space(event):
@@ -105,7 +104,7 @@ def show_window2():
     window2 = tk.Toplevel(root)
     window2.title("Window 2")
     set_window(300,200,window2)
-    label2 = ttk.Label(window2, text="鼠标放到背包左上格子中间位置！")
+    label2 = tk.ttk.Label(window2, text="鼠标放到背包左上格子中间位置！")
     label2.pack()
 
     def check_space(event):
@@ -123,7 +122,7 @@ def show_window3():
     window3 = tk.Toplevel(root)
     window3.title("Window 3")
     set_window(300,200,window3)
-    label3 = ttk.Label(window3, text="鼠标放到背包左下格子中间位置！")
+    label3 = tk.ttk.Label(window3, text="鼠标放到背包左下格子中间位置！")
     label3.pack()
 
     def check_space(event):
@@ -141,7 +140,7 @@ def show_window4():
     window4 = tk.Toplevel(root)
     window4.title("Window 4")
     set_window(300,200,window4)
-    label4 = ttk.Label(window4, text="鼠标放到背包右上格子中间位置！")
+    label4 = tk.ttk.Label(window4, text="鼠标放到背包右上格子中间位置！")
     label4.pack()
 
     def check_space(event):
@@ -179,7 +178,7 @@ def set_number():
             show_set_number_window.destroy()
             root.attributes('-topmost', True)
 
-        button_confirm = ttk.Button(show_set_number_window, text="确定", command=get_input)
+        button_confirm = tk.ttk.Button(show_set_number_window, text="确定", command=get_input)
         button_confirm.place(relx=0.5, rely=0.7, anchor="center")  # 设置按钮在窗口中间
 
         show_set_number_window.focus_force()
@@ -212,11 +211,11 @@ root.title("全自动罗盘")
 set_window(300, 200, root)
 
 # 创建按钮
-button1 = ttk.Button(root, text="点我设置坐标", command=show_window1)
+button1 = tk.ttk.Button(root, text="点我设置坐标", command=show_window1)
 button1.place(relx=0.5, rely=0.3, anchor="center")  # 设置按钮在窗口中间
-button2 = ttk.Button(root, text="点击设置数量", command=set_number)
+button2 = tk.ttk.Button(root, text="点击设置数量", command=set_number)
 button2.place(relx=0.5, rely=0.5, anchor="center")  # 设置按钮在窗口中间
-button3 = ttk.Button(root, text="点击运行", command=run_it)
+button3 = tk.ttk.Button(root, text="点击运行", command=run_it)
 button3.place(relx=0.5, rely=0.7, anchor="center")  # 设置按钮在窗口中间
 
 # 进入主事件循环
