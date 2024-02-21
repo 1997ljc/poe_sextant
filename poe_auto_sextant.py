@@ -4,7 +4,7 @@ import keyboard as kb
 import random
 import pyperclip
 import tkinter as tk
-
+import log_printer  #输入日志
 
 # 手动进行充能罗盘的过滤
 def sextant_filter():
@@ -43,6 +43,39 @@ def move_click_reuse(void_position, sextant_or_compass):
     # 左键点击虚空石
     pyautogui.click(button="left")
 
+# 计算背包格子的横纵间隔
+def step_cal(location_1,location_2):
+    row_step = abs((location_1[0] - location_2[0]) / 11.0)
+    col_step = abs((location_1[1] - location_2[1]) / 4.0)
+    return row_step,col_step
+
+
+def auto_save_compass():
+    (row_step, col_step) = step_cal(left_up_location,right_down_location)
+    # 鼠标移动到对应仓库
+    pyautogui.moveTo(*store_location, duration=0.01)
+    time.sleep(0.06)
+    # 点击仓库标签进入该仓库
+    pyautogui.click(button="left")
+    # 按住ctrl
+    pyautogui.keyDown("ctrl")
+    # 依次点击背包的格子
+    for i in range(60):
+        i_5_a, i_5_b = divmod(i, 5)  # 前面商，后面余数
+        # 鼠标移动到背包中位置
+        curr_location = ((left_up_location[0] + i_5_a * row_step * 1.0 + 3 * random.random()),
+                         (left_up_location[1] + i_5_b * col_step * 1.0) + 3 * random.random())
+        pyautogui.moveTo(*curr_location, duration=0.01)
+        # 点击鼠标左键
+        pyautogui.click(button="left")
+        time.sleep(0.02)
+    # 松开ctrl
+    pyautogui.keyUp("ctrl")
+    # 回到通货仓库页
+    pyautogui.keyDown("left")
+    time.sleep(2)
+    pyautogui.keyUp("left")
+
 
 # 整个程序的运行主体
 def whole_process(void_position, sextant_location, compass_location, full_compass_start_location, sextant_num,
@@ -80,8 +113,9 @@ def whole_process(void_position, sextant_location, compass_location, full_compas
 def whole_process_new(void_position, sextant_position, surveyor_compass_position, sextant_num, compass_num):
 
     times = compass_num if (sextant_num >= compass_num) else sextant_num
-    row_step = abs((left_up_location[0] - right_down_location[0]) / 11.0)
-    col_step = abs((left_up_location[1] - right_down_location[1]) / 4.0)
+    (row_step, col_step) = step_cal(left_up_location,right_down_location)
+    # row_step = abs((left_up_location[0] - right_down_location[0]) / 11.0)
+    # col_step = abs((left_up_location[1] - right_down_location[1]) / 4.0)
     total_compass_in_one_bag = 0  # 用于记录当前这一背包充能罗盘中的个数，每次到六十个会清零
 
     for i in range(int(times)):
@@ -111,10 +145,13 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
 
                 total_compass_in_one_bag = total_compass_in_one_bag + 1
                 # 满一包了自动停止，或者这里做成自动存包
-                if total_compass_in_one_bag == 20:
+                if total_compass_in_one_bag == 10:
                     total_compass_in_one_bag = 0
-                    break
-                    # function自动存包
+                    if auto_save.get():
+                        # 自动存包
+                        auto_save_compass()
+                    else:
+                        break
 
             # 等待一段时间
             time.sleep(0.05)
@@ -144,8 +181,10 @@ def show_window1():
         if event.keysym == "space":
             window1.destroy()
             x1, y1 = pyautogui.position()
+            logger.info("守望石位置为: (%d,%d)" % (x1, y1))
             global void_position
             void_position = (x1, y1)
+
             show_window2()
 
     window1.bind("<Key>", check_space)
@@ -163,6 +202,7 @@ def show_window2():
         if event.keysym == "space":
             window2.destroy()
             x2, y2 = pyautogui.position()
+            logger.info("六分仪位置为: (%d,%d)" % (x2, y2))
             global sextant_position
             sextant_position = (x2, y2)
             show_window3()
@@ -182,6 +222,7 @@ def show_window3():
         if event.keysym == "space":
             window3.destroy()
             x3, y3 = pyautogui.position()
+            logger.info("测绘罗盘位置为: (%d,%d)" % (x3, y3))
             global surveyor_compass_position
             surveyor_compass_position = (x3, y3)
             show_window4()
@@ -202,6 +243,7 @@ def show_window4():
             window4.destroy()
             show_window5()
             x4, y4 = pyautogui.position()
+            logger.info("背包左上位置为: (%d,%d)" % (x4, y4))
             global left_up_location
             left_up_location = (x4, y4)
 
@@ -211,7 +253,7 @@ def show_window4():
 
 def show_window5():
     window5 = tk.Toplevel(root)
-    window5.title("Window 4")
+    window5.title("Window 5")
     set_window(300,200,window5)
     label5 = tk.ttk.Label(window5, text="鼠标放到背包右下格子中间位置！")
     label5.pack()
@@ -219,14 +261,35 @@ def show_window5():
     def check_space(event):
         if event.keysym == "space":
             window5.destroy()
-#            root.destroy()
+            show_window6()
             x5, y5 = pyautogui.position()
+            logger.info("背包右下位置为: (%d,%d)" % (x5, y5))
             global right_down_location
             right_down_location = (x5, y5)
 
     window5.bind("<Key>", check_space)
     window5.focus_force()
 
+
+def show_window6():
+    window6 = tk.Toplevel(root)
+    window6.title("Window 6")
+    set_window(300,200,window6)
+    label6 = tk.ttk.Label(window6, text="鼠标放到罗盘仓库位置！\n切记将通货页移动到最最左边！！")
+    label6.pack()
+
+    def check_space(event):
+        if event.keysym == "space":
+            window6.destroy()
+            # 设置基础设置窗口为置顶
+            root.attributes('-topmost', 1)
+            x6, y6 = pyautogui.position()
+            logger.info("仓库位置为: (%d,%d)" % (x6, y6))
+            global store_location
+            store_location = (x6, y6)
+
+    window6.bind("<Key>", check_space)
+    window6.focus_force()
 
 def set_number():
     show_set_number_window = tk.Toplevel(root)
@@ -265,7 +328,7 @@ def run_it():
 # 创建主窗口
 root = tk.Tk()
 root.title("全自动罗盘")
-set_window(300, 200, root)
+set_window(500, 400, root)
 
 
 # 创建提示文本
@@ -273,11 +336,20 @@ label_remind = tk.Label(root, text="记得在舆图界面打开背包和仓库�
 label_remind.place(relx=0.5, rely=0.1, anchor="center")  # 设置提示文本
 # 创建按钮
 button1 = tk.ttk.Button(root, text="点我设置坐标", command=show_window1)
-button1.place(relx=0.5, rely=0.3, anchor="center")  # 设置按钮在窗口中间
+button1.place(relx=0.2, rely=0.3, anchor="center")  # 设置按钮的位置
 button2 = tk.ttk.Button(root, text="点击设置数量", command=set_number)
-button2.place(relx=0.5, rely=0.5, anchor="center")  # 设置按钮在窗口中间
+button2.place(relx=0.2, rely=0.5, anchor="center")  # 设置按钮的位置
 button3 = tk.ttk.Button(root, text="点击运行", command=run_it)
-button3.place(relx=0.5, rely=0.7, anchor="center")  # 设置按钮在窗口中间
+button3.place(relx=0.2, rely=0.7, anchor="center")  # 设置按钮的位置
+# 创建复选框，用于选择是否开启自动存包功能
+auto_save = tk.IntVar()
+checkbutton1 = tk.Checkbutton(root, text="自动存包", variable=auto_save)
+checkbutton1.place(relx=0.65, rely=0.3, anchor="center")  # 设置复选框的位置
+# 创建日志框
+sextant_text = tk.Text(root, wrap=tk.WORD, height=10, width=40)
+sextant_text.place(relx=0.65, rely=0.6, anchor="center") # 设置日志框的位置
+# 创建日志记录器
+logger = log_printer.gen_logger(sextant_text)
 
 # 进入主事件循环
 root.mainloop()
