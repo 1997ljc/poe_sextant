@@ -18,7 +18,7 @@ def sextant_filter():
             "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
             "托沃", "索伏", "艾许", "击败后可转化", "地图的品质加成", "锈蚀", "火焰", "冰霜", "闪电",
             "混沌", "木桶", "回复的生命和", "物理", "你的地图的品质为", "瓦尔之灵", "张额外地图", "腐化的瓦尔怪物",
-            "反射伤害", "抛光"]
+            "反射伤害", "抛光", "尼克", "贪婪"]
     list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
     flag = 0
 
@@ -36,9 +36,8 @@ def sextant_filter():
     for each in list:
         if each in content:
             flag = 1
-            print(each)
             break
-        else:
+    else:
             flag = 0
 
     # 提醒使用者没有点天赋
@@ -95,7 +94,7 @@ def auto_save_compass():
     pyautogui.keyUp("ctrl")
     # 回到通货仓库页
     pyautogui.keyDown("left")
-    time.sleep(2)
+    time.sleep(0.8)
     pyautogui.keyUp("left")
 
 
@@ -110,7 +109,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
     total_compass_in_one_bag = 0  # 用于记录当前这一背包充能罗盘中的个数，每次到六十个会清零
 
     for i in range(int(times)):
-        if kb.is_pressed('esc'):
+        if kb.is_pressed('end'):
             log_print(logger, "结束键被按下,程序终止！！！")
             break
         else:
@@ -147,7 +146,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
 
                 total_compass_in_one_bag = total_compass_in_one_bag + 1
                 # 满一包了自动停止，或者这里做成自动存包
-                if total_compass_in_one_bag == 10:
+                if total_compass_in_one_bag == 60:
                     total_compass_in_one_bag = 0
                     if auto_save.get():
                         # 自动存包
@@ -156,12 +155,14 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                         log_print(logger, "自动存包结束！")
                     else:
                         break
-            if i == int(times):
-                log_print(logger, "程序结束，自动存包开始！")
-                auto_save_compass()
-                log_print(logger, "自动存包结束！")
             # 等待一段时间
             time.sleep(0.05)
+
+    # 程序结束再存一次包
+    log_print(logger, "程序结束，自动存包开始！")
+    auto_save_compass()
+    log_print(logger, "自动存包结束！")
+
     # 输出总结报告
     log_print(logger,"***********************")
     log_print(logger,"本次执行获得罗盘如下：")
