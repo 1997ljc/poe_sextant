@@ -16,6 +16,7 @@ class TextHandler(logging.Handler):
 
 
 def gen_logger(log_text):
+    logging.basicConfig()
     # 创建一个日志记录器
     logger = logging.getLogger()
     logger.setLevel(logging.INFO)
