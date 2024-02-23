@@ -7,6 +7,8 @@
     <list default="true" id="220aec29-0a9b-44b4-bf45-e913ae74a524" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poe_auto_sextant.py" beforeDir="false" afterPath="$PROJECT_DIR$/poe_auto_sextant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +51,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/22415/PycharmProjects/pythonProject/POE_sextant",
     "settings.editor.selected.configurable": "editor.preferences.fonts.default"

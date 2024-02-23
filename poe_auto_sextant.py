@@ -7,6 +7,7 @@ import tkinter as tk
 import log_printer  #输入日志
 
 
+# 在窗口打印日志并更新
 def log_print(logger, msg):
     logger.info(msg)
     root.update()
@@ -18,7 +19,7 @@ def sextant_filter():
             "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
             "托沃", "索伏", "艾许", "击败后可转化", "地图的品质加成", "锈蚀", "火焰", "冰霜", "闪电",
             "混沌", "木桶", "回复的生命和", "物理", "你的地图的品质为", "瓦尔之灵", "张额外地图", "腐化的瓦尔怪物",
-            "反射伤害", "抛光", "尼克", "贪婪"]
+            "反射伤害", "抛光", "尼克", "贪婪", "驱灵"]
     list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
     flag = 0
 
@@ -50,14 +51,15 @@ def sextant_filter():
 
 # 模拟鼠标在六分仪和虚空石之间的点击操作
 def move_click_reuse(void_position, sextant_or_compass):
+    global global_run_speed
     # 移动到六分仪处
-    pyautogui.moveTo(*sextant_or_compass, duration=0.05)
+    pyautogui.moveTo(*sextant_or_compass, duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
     # 右键点击六分仪
     pyautogui.click(button="right")
     # 等待一段时间
-    time.sleep(0.1)
+    time.sleep(0.1+(global_run_speed-1)/90.0)  # 0.1 --- 0.2
     # 移动到虚空石处
-    pyautogui.moveTo(*void_position, duration=0.05)
+    pyautogui.moveTo(*void_position, duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
     # 左键点击虚空石
     pyautogui.click(button="left")
 
@@ -69,10 +71,11 @@ def step_cal(location_1,location_2):
 
 
 def auto_save_compass():
+    global global_run_speed
     (row_step, col_step) = step_cal(left_up_location,right_down_location)
     # 鼠标移动到对应仓库
     pyautogui.moveTo(*store_location, duration=0.01)
-    time.sleep(0.06)
+    time.sleep(0.06+(2 * random.random() - 1)*(global_run_speed/500.0))
     # 点击仓库标签进入该仓库
     pyautogui.click(button="left")
     # 按住ctrl
@@ -94,13 +97,13 @@ def auto_save_compass():
     pyautogui.keyUp("ctrl")
     # 回到通货仓库页
     pyautogui.keyDown("left")
-    time.sleep(0.8)
+    time.sleep(0.8+(2 * random.random() - 1)*(global_run_speed/500.0))
     pyautogui.keyUp("left")
 
 
 # 新版运行主体
 def whole_process_new(void_position, sextant_position, surveyor_compass_position, sextant_num, compass_num):
-
+    global global_run_speed
     summary_dir = {}
 
     times = compass_num if (sextant_num >= compass_num) else sextant_num
@@ -115,8 +118,8 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
         else:
             log_print(logger, "共%d次，当前第%d次" % (int(times), (i + 1)))
 
-            move_click_reuse(void_position, (sextant_position[0] + 3 * random.random(),
-                                             sextant_position[1] + 3 * random.random()))
+            move_click_reuse(void_position, (sextant_position[0] + 5 * random.random(),
+                                             sextant_position[1] + 5 * random.random()))
 
             flag, sextant_text = sextant_filter()
 
@@ -140,7 +143,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 curr_location = ((right_down_location[0] - i_5_a * row_step * 1.0 + 3 * random.random()),
                                  (left_up_location[1] + i_5_b * col_step * 1.0) + 3 * random.random())
                 # 移动到放置位置处
-                pyautogui.moveTo(*curr_location, duration=0.05)
+                pyautogui.moveTo(*curr_location, duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
                 # 放下六分仪罗盘
                 pyautogui.click(button="left")
 
@@ -156,7 +159,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                     else:
                         break
             # 等待一段时间
-            time.sleep(0.05)
+            time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
 
     # 程序结束再存一次包
     log_print(logger, "程序结束，自动存包开始！")
@@ -303,6 +306,8 @@ def show_window6():
     window6.bind("<Key>", check_space)
     window6.focus_force()
 
+
+# 设置六分仪数量以及测绘罗盘的数量
 def set_number():
     show_set_number_window = tk.Toplevel(root)
     show_set_number_window.title("set_number_window")
@@ -323,25 +328,123 @@ def set_number():
         sextant_input = entry_sextant.get()
         compass_input = entry_compass.get()
         show_set_number_window.destroy()
-        root.attributes('-topmost', True)
 
     button_confirm = tk.ttk.Button(show_set_number_window, text="确定", command=get_input)
     button_confirm.place(relx=0.5, rely=0.7, anchor="center")  # 设置按钮在窗口中间
 
     show_set_number_window.focus_force()
 
+# 绕开测试，直接确定速度挡位
+def get_run_speed(entry_speed,show_set_speed_window):
+    global global_run_speed
+    try:
+        run_speed = entry_speed.get()
+        run_speed = int(run_speed)
+        global_run_speed = run_speed
+
+        if (run_speed > 10) or (run_speed < 1):
+            raise ValueError
+        log_print(logger, "速度挡位设置成功为：%d"%global_run_speed)
+        show_set_speed_window.destroy()
+
+
+    except ValueError:
+        # raise Error!
+        speed_error_window = tk.Toplevel(root)
+        speed_error_window.title("输入错误！！！！")
+        set_window(300, 300, speed_error_window)
+        # 文本提示
+        entry_speed_remind = tk.Label(speed_error_window, text="请输入1-10的数字！！！！",font=("Courier", 12))
+        entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
+
+# 创建测试所用窗口
+def test_run_speed(entry_speed):
+    global global_run_speed
+    try:
+        run_speed = entry_speed.get()
+        run_speed = int(run_speed)
+        global_run_speed = run_speed
+
+        if (run_speed > 10) or (run_speed < 1):
+            raise ValueError
+
+        # 创建测试用窗口
+        test_speed_window = tk.Toplevel(root)
+        test_speed_window.title("test_run_speed")
+        set_window(700, 500, test_speed_window)
+
+        # 文本提示
+        test_remind = tk.Label(test_speed_window, text="观察鼠标移动速度！\n测试结束后此窗口自动关闭！\n过程中按住esc即可停止",
+                               font=("Courier", 18))
+        test_remind.place(relx=0.5, rely=0.5, anchor="center")  # 设置提示文本
+
+        root.update()
+        test_x, test_y = pyautogui.position()
+        # 循环点击，测试鼠标速度
+        for i in (range(10)):
+            # 提前关闭窗口
+            if kb.is_pressed('esc'):
+                break
+            else:
+                pyautogui.moveTo(*(test_x, test_y), duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
+                time.sleep(0.1*global_run_speed)
+                pyautogui.moveTo(*(test_x + 200, test_y - 100), duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
+                time.sleep(0.1*global_run_speed)
+        # 本次测试结束，关闭窗口
+        test_speed_window.destroy()
+    except ValueError:
+        # raise Error!
+        speed_error_window = tk.Toplevel(root)
+        speed_error_window.title("输入错误！！！！")
+        set_window(300, 300, speed_error_window)
+        # 文本提示
+        entry_speed_remind = tk.Label(speed_error_window, text="请输入1-10的数字！！！！",font=("Courier", 12))
+        entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
+
+
+def set_run_speed():
+
+    show_set_speed_window = tk.Toplevel(root)
+    show_set_speed_window.title("set_run_speed")
+    set_window(350, 200, show_set_speed_window)
+    # 输入框
+    entry_speed = tk.Entry(show_set_speed_window, width=15, font=("Arial", 15))
+    entry_speed.insert(0, "输入速度挡位")  # 设置默认文本
+    entry_speed.config(fg="gray")  # 设置前景色为白色，背景色为透明
+    entry_speed.place(relx=0.5, rely=0.45, anchor="center")  # 输入框位置
+
+    # 文本提示
+    entry_speed_remind = tk.Label(show_set_speed_window, text="输入1(快)-10(慢)的数字选择速度挡位！", font=("Courier", 12))
+    entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
+    # 创建测试按钮
+    test_button = tk.ttk.Button(show_set_speed_window, text=" \n  点我测试速度  \n ", command=lambda: test_run_speed(entry_speed))
+    test_button.place(relx=0.3, rely=0.75, anchor="center")  # 设置按钮的位置
+    button_confirm = tk.ttk.Button(show_set_speed_window, text=" \n  确定  \n ", command=lambda: get_run_speed(entry_speed,show_set_speed_window))
+    button_confirm.place(relx=0.7, rely=0.75, anchor="center")  # 设置按钮的位置
+
+
+
+
+
+
 
 def run_it():
     # 设置基础设置窗口为置顶
-    root.attributes('-topmost', 1)
+    root.attributes('-topmost', True)
     # 移动到虚空石处
     whole_process_new(void_position, sextant_position, surveyor_compass_position, int(sextant_input), int(compass_input))
+    # 取消基础设置窗口为置顶
+    root.attributes('-topmost', False)
 
 
 # 创建主窗口
 root = tk.Tk()
 root.title("全自动罗盘")
 set_window(500, 400, root)
+
+# 速度挡位参数
+global global_run_speed
+global_run_speed = 2
 
 # 定义窗口的标签风格
 style = tk.ttk.Style()
@@ -354,9 +457,11 @@ label_remind.place(relx=0.5, rely=0.1, anchor="center")  # 设置提示文本
 button1 = tk.ttk.Button(root, text="点我设置坐标", command=show_window1)
 button1.place(relx=0.2, rely=0.3, anchor="center")  # 设置按钮的位置
 button2 = tk.ttk.Button(root, text="点击设置数量", command=set_number)
-button2.place(relx=0.2, rely=0.5, anchor="center")  # 设置按钮的位置
-button3 = tk.ttk.Button(root, text="点击运行", command=run_it)
-button3.place(relx=0.2, rely=0.7, anchor="center")  # 设置按钮的位置
+button2.place(relx=0.2, rely=0.45, anchor="center")  # 设置按钮的位置
+button3 = tk.ttk.Button(root, text="设置速度挡位", command=set_run_speed)
+button3.place(relx=0.2, rely=0.6, anchor="center")  # 设置按钮的位置
+button4 = tk.ttk.Button(root, text="点击运行", command=run_it)
+button4.place(relx=0.2, rely=0.75, anchor="center")  # 设置按钮的位置
 # 创建复选框，用于选择是否开启自动存包功能
 auto_save = tk.IntVar()
 checkbutton1 = tk.Checkbutton(root, text="自动存包", variable=auto_save)
