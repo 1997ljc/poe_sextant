@@ -423,11 +423,6 @@ def set_run_speed():
     button_confirm.place(relx=0.7, rely=0.75, anchor="center")  # 设置按钮的位置
 
 
-
-
-
-
-
 def run_it():
     # 设置基础设置窗口为置顶
     root.attributes('-topmost', True)
