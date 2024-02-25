@@ -5,6 +5,8 @@ import random
 import pyperclip
 import tkinter as tk
 import log_printer  #输入日志
+import tencent_server_price
+import sextant_filter
 
 
 # 在窗口打印日志并更新
@@ -441,6 +443,11 @@ set_window(500, 400, root)
 global global_run_speed
 global_run_speed = 2
 
+# 定义数据获取接口url
+Tencent_Server_Url = "https://gitee.com/hhzxxx/exilence-next-tx-release/raw/master/price2.txt"
+#tencent_server_price.Tencent_compass_data(Tencent_Server_Url)
+print(tencent_server_price.sextant_list_all)
+
 # 定义窗口的标签风格
 style = tk.ttk.Style()
 style.configure("poe_style.TLabel", font=("Times new roman", 16))
@@ -457,10 +464,12 @@ button3 = tk.ttk.Button(root, text="设置速度挡位", command=set_run_speed)
 button3.place(relx=0.2, rely=0.6, anchor="center")  # 设置按钮的位置
 button4 = tk.ttk.Button(root, text="点击运行", command=run_it)
 button4.place(relx=0.2, rely=0.75, anchor="center")  # 设置按钮的位置
+button5 = tk.ttk.Button(root, text=" \n  设置罗盘过滤  \n ", command=run_it)
+button5.place(relx=0.5, rely=0.3, anchor="center")  # 设置按钮的位置
 # 创建复选框，用于选择是否开启自动存包功能
 auto_save = tk.IntVar()
 checkbutton1 = tk.Checkbutton(root, text="自动存包", variable=auto_save)
-checkbutton1.place(relx=0.65, rely=0.3, anchor="center")  # 设置复选框的位置
+checkbutton1.place(relx=0.8, rely=0.3, anchor="center")  # 设置复选框的位置
 # 创建日志框
 sextant_log = tk.Text(root, wrap=tk.WORD, height=10, width=40)
 sextant_log.place(relx=0.65, rely=0.6, anchor="center") # 设置日志框的位置

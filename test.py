@@ -1,16 +1,29 @@
-import gzip
-import base64
-import io
-import json
+import tkinter as tk
 
-with open(r"..\price2.txt", "rb") as price:
-    price_date = price.read()
+def select_all():
+    for var in checkbox_vars:
+        var.set(1)  # 设置所有复选框为选中状态
 
-compressed_bytes = base64.b64decode(price_date)
-bytes_compressed = gzip.compress(compressed_bytes)
-with gzip.GzipFile(fileobj=io.BytesIO(compressed_bytes), mode='rb') as f:
-    decompressed_bytes = f.read()
-decompressed_json = decompressed_bytes.decode('utf-8')
-print(decompressed_json)
+def deselect_all():
+    for var in checkbox_vars:
+        var.set(0)  # 设置所有复选框为未选中状态
 
-#decompressed_data = json.loads(decompressed_json)
+root = tk.Tk()
+root.title("Select All Checkboxes Example")
+
+# 创建50个复选框
+checkbox_vars = []  # 存储复选框的变量
+for i in range(50):
+    var = tk.IntVar()
+    checkbox_vars.append(var)
+    checkbutton = tk.Checkbutton(root, text=f"Option {i+1}", variable=var)
+    checkbutton.grid(row=i // 5, column=i % 5, sticky="w")
+
+# 创建全选和反选按钮
+select_all_button = tk.Button(root, text="Select All", command=select_all)
+select_all_button.grid(row=10, column=0)
+
+deselect_all_button = tk.Button(root, text="Deselect All", command=deselect_all)
+deselect_all_button.grid(row=10, column=1)
+
+root.mainloop()
