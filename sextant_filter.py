@@ -2,17 +2,19 @@ import tencent_server_price as tsp
 import tkinter as tk
 
 
+#复选框选择按钮--全选
 def select_all(compass_var_dir):
     for var in compass_var_dir.values():
         var.set(1)  # 设置所有复选框为选中状态
 
 
+#复选框选择按钮--全不选
 def deselect_all(compass_var_dir):
     for var in compass_var_dir.values():
         var.set(0)  # 设置所有复选框为未选中状态
 
 
-#根据价格进行选择
+#根复选框选择按钮--据价格进行选择
 def select_special(compass_var_dir,price_compass_dir,price_above,root):
     # 预先清空一遍
     deselect_all(compass_var_dir)

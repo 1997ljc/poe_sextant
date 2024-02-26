@@ -58,7 +58,7 @@ def get_price_compass_dir(compass_data):
 # 返回数据并处理，最终返回出来的是罗盘名字与其价格的对应字典
 def Tencent_compass_data(Tencent_Server_Url):
 
-    price_json = load_Tencent_Server_Data(Tencent_Server_Url) # 这是解码数据,price_josn里面就有数据了
+    price_json = load_Tencent_Server_Data(Tencent_Server_Url)  # 这是解码数据,price_josn里面就有数据了
 
     # 对json格式数据采用pandas处理
     df = pd.DataFrame(price_json)
