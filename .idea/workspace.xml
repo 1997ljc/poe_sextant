@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="220aec29-0a9b-44b4-bf45-e913ae74a524" name="更改" comment="">
-      <change afterPath="$PROJECT_DIR$/global_serer_price.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sextant_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global_serer_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_serer_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/poe_auto_sextant.py" beforeDir="false" afterPath="$PROJECT_DIR$/poe_auto_sextant.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sextant_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tencent_server_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/tencent_server_price.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +58,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   }
 }</component>
-  <component name="RunManager" selected="Python.global_serer_price">
+  <component name="RunManager" selected="Python.poe_auto_sextant (1)">
     <configuration name="global_serer_price" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="poe_sextant" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -121,7 +122,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="sextant_filter" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="sextant_filter_pkg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="poe_sextant" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -133,7 +134,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sextant_filter.py" />
+      <option name="SCRIPT_NAME" value="F:\POE_python_scripts\poe_sextant\sextant_filter_pkg.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -186,10 +187,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.global_serer_price" />
-        <item itemvalue="Python.sextant_filter" />
-        <item itemvalue="Python.test" />
         <item itemvalue="Python.poe_auto_sextant (1)" />
+        <item itemvalue="Python.sextant_filter_pkg" />
+        <item itemvalue="Python.global_serer_price" />
+        <item itemvalue="Python.test" />
         <item itemvalue="Python.tencent_server_price" />
       </list>
     </recent_temporary>
@@ -204,6 +205,17 @@
       <updated>1708354640945</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

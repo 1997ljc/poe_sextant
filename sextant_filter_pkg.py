@@ -1,4 +1,5 @@
 import tencent_server_price as tsp
+import global_serer_price as gsp
 import tkinter as tk
 
 
@@ -31,7 +32,7 @@ def select_special(compass_var_dir,price_compass_dir,price_above,root):
             window_error.geometry("300*400")
 
 
-def gen_checkbuttons_for_all_sextant(price_compass_dir,root):
+def gen_checkbuttons_for_all_compass(price_compass_dir,root):
     window1 = tk.Toplevel(root)
     window1.title("罗盘过滤选择！")
     window1.geometry("2000x800")  # 设置窗口大小
@@ -50,7 +51,7 @@ def gen_checkbuttons_for_all_sextant(price_compass_dir,root):
         checkbutton.grid(row=location_index_y, column=location_index_x)
         # 循环变量递增
         location_index = location_index + 1
-        # 返回复选框和价格的字典，方便后面进行高于多少价格的判断
+        # 返回价格和复选框的字典，方便后面进行高于多少价格的判断
         compass_var_dir[key] = var
 
     # 创建全选和反选按钮
@@ -63,17 +64,36 @@ def gen_checkbuttons_for_all_sextant(price_compass_dir,root):
     deselect_all_button = tk.Button(window1, text="根据价格设置", command=lambda: select_special(compass_var_dir,price_compass_dir,5,root))
     deselect_all_button.grid(row=14, column=4)
 
-    #return compass_var_dir
+
+def Global_checkbuttons(root):
+    Global_TFT_Data_Url = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/lsc/bulk-compasses.json"
+    Global_NINJA_Data_Url = "https://poe.ninja/api/data/currencyoverview?league=Affliction&type=Currency"
+    global_server_compass_data = gsp.load_TFTdata_from_github(Global_TFT_Data_Url)
+    gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, gsp.compass_english2chinese), root)
+
+
+def Tencent_checkbuttons(root):
+    Tencent_Server_Url = "https://gitee.com/hhzxxx/exilence-next-tx-release/raw/master/price2.txt"
+    tencent_compass_data = tsp.Tencent_compass_data(Tencent_Server_Url)
+    gen_checkbuttons_for_all_compass(tsp.Tencent_compass_data_alias(tencent_compass_data, tsp.compass_list_all), root)
+
+# todo
+def choose_server(root):
+    print("TODO")
 
 if __name__ == "__main__":
     Tencent_Server_Url = "https://gitee.com/hhzxxx/exilence-next-tx-release/raw/master/price2.txt"
-    a = tsp.Tencent_compass_data(Tencent_Server_Url)
+    tencent_compass_data = tsp.Tencent_compass_data(Tencent_Server_Url)
 
-    tsp.Tencent_compass_data_alias(a, tsp.sextant_list_all)
+    Global_TFT_Data_Url = "https://raw.githubusercontent.com/The-Forbidden-Trove/tft-data-prices/master/lsc/bulk-compasses.json"
+    Global_NINJA_Data_Url = "https://poe.ninja/api/data/currencyoverview?league=Affliction&type=Currency"
+    global_server_compass_data = gsp.load_TFTdata_from_github(Global_TFT_Data_Url)
+
+    #tsp.Tencent_compass_data_alias(tencent_compass_data, tsp.sextant_list_all)
 
     root = tk.Tk()
     root.title("Checkbutton Example")
     root.geometry("300x400")  # 设置窗口大小
-    #compass_var_dir = gen_checkbuttons_for_all_sextant(tsp.Tencent_compass_data_alias(a, tsp.sextant_list_all), root)
-    gen_checkbuttons_for_all_sextant(tsp.Tencent_compass_data_alias(a, tsp.sextant_list_all), root)
+    gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, gsp.compass_english2chinese), root)
+#   gen_checkbuttons_for_all_compass(tsp.Tencent_compass_data_alias(tencent_compass_data, tsp.compass_list_all), root)
     root.mainloop()
