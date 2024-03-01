@@ -5,7 +5,7 @@ import json
 
 def load_TFTdata_from_github(URL_TFT_DATA):
     print(f"Requesting data from TFT Github")
-    req = requests.get(URL_TFT_DATA)
+    req = requests.get(URL_TFT_DATA, verify=False)
     data = req.json()
     print(f"Compass Data from TFT Github saved \n")
     data_dir = {}

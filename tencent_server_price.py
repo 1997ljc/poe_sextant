@@ -32,7 +32,7 @@ def getDivToSextant(df):
 
 def load_Tencent_Server_Data(Tencent_Server_Url):
     try:
-        Tencent_Server_Data = requests.get(Tencent_Server_Url).text
+        Tencent_Server_Data = requests.get(Tencent_Server_Url, verify=False).text
         # TODO: 需要添加在日志窗口的网页响应码输出
         compressed_bytes = base64.b64decode(str(Tencent_Server_Data).encode("utf-8-sig"))
         with gzip.GzipFile(fileobj=io.BytesIO(compressed_bytes), mode='rb') as f:
