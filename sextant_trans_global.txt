@@ -23,7 +23,7 @@ Uul-Netol,地图内裂隙属于乌尔尼多
 Contracts Implicit,夺宝奇兵契约额外有一个基底词缀
 Gloom Shrine,隐忍神龛
 Jun,该地图会出现【琼】
-Map 20% Quality,地图的品质加成也会影响掉落物品的稀有度
+Map 20% Quality,你的地图的品质为20%
 Runic Monster Markers,符纹怪物之印的数量提高 100%
 Syndicate Intelligence,不朽辛迪加目标处获得的情报提高100%
 Unidentified Map,你的未鉴定的地图中的怪物群规模提高20%

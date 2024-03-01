@@ -8,8 +8,9 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/global_serer_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_serer_price.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poe_auto_sextant.py" beforeDir="false" afterPath="$PROJECT_DIR$/poe_auto_sextant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sextant_filter.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tencent_server_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/tencent_server_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sextant_filter_pkg.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sextant_trans_global.txt" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_trans_global.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,6 +123,27 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="sextant_filter_pkg (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="poe_sextant" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/sextant_filter_pkg.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="sextant_filter_pkg" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="poe_sextant" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,27 +157,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="F:\POE_python_scripts\poe_sextant\sextant_filter_pkg.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="tencent_server_price" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="poe_sextant" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tencent_server_price.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -188,10 +189,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.poe_auto_sextant (1)" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.sextant_filter_pkg (1)" />
         <item itemvalue="Python.sextant_filter_pkg" />
         <item itemvalue="Python.global_serer_price" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.tencent_server_price" />
       </list>
     </recent_temporary>
   </component>

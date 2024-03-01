@@ -16,19 +16,20 @@ def log_print(logger, msg):
 
 
 # 手动进行充能罗盘的过滤
-def sextant_filter():
-    list = ["传奇怪物掉落腐化", "地图首领由守卫守护", "盗贼", "哈尔", "阻灵", "额外的传奇", "菌潮遭遇战",
-            "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
-            "托沃", "索伏", "艾许", "击败后可转化", "地图的品质加成", "锈蚀", "火焰", "冰霜", "闪电",
-            "混沌", "木桶", "回复的生命和", "物理", "你的地图的品质为", "瓦尔之灵", "张额外地图", "腐化的瓦尔怪物",
-            "反射伤害", "抛光", "尼克", "贪婪", "驱灵"]
-    list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
+def sextant_filter(compass_list):
+    # list = ["传奇怪物掉落腐化", "地图首领由守卫守护", "盗贼", "哈尔", "阻灵", "额外的传奇", "菌潮遭遇战",
+    #         "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
+    #         "托沃", "索伏", "艾许", "击败后可转化", "地图的品质加成", "锈蚀", "火焰", "冰霜", "闪电",
+    #         "混沌", "木桶", "回复的生命和", "物理", "你的地图的品质为", "瓦尔之灵", "张额外地图", "腐化的瓦尔怪物",
+    #         "反射伤害", "抛光", "尼克", "贪婪", "驱灵"]
+    # list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
     flag = 0
 
     pyautogui.hotkey("ctrl", "c")
 
     content = pyperclip.paste()  # 将剪贴板中的内容取出并赋值给content
 
+    # 对剪贴版内容进行处理
     content = content.replace("\r", '')
     content = content.replace("\n", '')
     content = content[content.find("--------") + 8:]
@@ -36,7 +37,7 @@ def sextant_filter():
     content = content[:content.find("使用剩余")]
     content = content.replace("(enchant)", "")
 
-    for each in list:
+    for each in compass_list:
         if each in content:
             flag = 1
             break
@@ -123,7 +124,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
             move_click_reuse(void_position, (sextant_position[0] + 5 * random.random(),
                                              sextant_position[1] + 5 * random.random()))
 
-            flag, sextant_text = sextant_filter()
+            flag, sextant_text = sextant_filter(sextant_filter_pkg.compass_list)
 
             if flag == 1:
                 continue
@@ -336,6 +337,7 @@ def set_number():
 
     show_set_number_window.focus_force()
 
+
 # 绕开测试，直接确定速度挡位
 def get_run_speed(entry_speed,show_set_speed_window):
     global global_run_speed
@@ -348,8 +350,6 @@ def get_run_speed(entry_speed,show_set_speed_window):
             raise ValueError
         log_print(logger, "速度挡位设置成功为：%d"%global_run_speed)
         show_set_speed_window.destroy()
-
-
     except ValueError:
         # raise Error!
         speed_error_window = tk.Toplevel(root)
@@ -358,6 +358,7 @@ def get_run_speed(entry_speed,show_set_speed_window):
         # 文本提示
         entry_speed_remind = tk.Label(speed_error_window, text="请输入1-10的数字！！！！",font=("Courier", 12))
         entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
+
 
 # 创建测试所用窗口
 def test_run_speed(entry_speed):
