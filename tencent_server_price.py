@@ -25,8 +25,7 @@ def getCompassData(df):
 def getDivToSextant(df):
     div = df[df['baseType'] == '神圣石']
     sextant = df[df['baseType'] == '觉醒六分仪']
-    div_sextant = pd.DataFrame([{'name': div['name'].item(), '数量': 1, 'calculated': (div['calculated'].item() / sextant['calculated'].item()), "单位": sextant['name'].item()},
-                                {'name': sextant['name'].item(), '数量': 1, 'calculated': (sextant['calculated'].item()), "单位": "混沌石"}])
+    div_sextant = pd.DataFrame([{'name': sextant['name'].item(), '数量': 1, 'calculated': (sextant['calculated'].item()), "单位": "混沌石"}])
     return div_sextant
 
 

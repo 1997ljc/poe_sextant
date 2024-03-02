@@ -4,7 +4,7 @@ import keyboard as kb
 import random
 import pyperclip
 import tkinter as tk
-import log_printer  #输入日志
+import log_printer  # 输入日志
 
 import sextant_filter_pkg
 
@@ -15,7 +15,7 @@ def log_print(logger, msg):
     root.update()
 
 
-# 手动进行充能罗盘的过滤
+# 充能罗盘的过滤，过滤数据来源于用户在配置界面进行的选择
 def sextant_filter(compass_list):
     # list = ["传奇怪物掉落腐化", "地图首领由守卫守护", "盗贼", "哈尔", "阻灵", "额外的传奇", "菌潮遭遇战",
     #         "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
@@ -23,11 +23,12 @@ def sextant_filter(compass_list):
     #         "混沌", "木桶", "回复的生命和", "物理", "你的地图的品质为", "瓦尔之灵", "张额外地图", "腐化的瓦尔怪物",
     #         "反射伤害", "抛光", "尼克", "贪婪", "驱灵"]
     # list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
+
     flag = 0
 
+    # 将剪贴板中的内容取出并赋值给content
     pyautogui.hotkey("ctrl", "c")
-
-    content = pyperclip.paste()  # 将剪贴板中的内容取出并赋值给content
+    content = pyperclip.paste()
 
     # 对剪贴版内容进行处理
     content = content.replace("\r", '')
@@ -41,9 +42,8 @@ def sextant_filter(compass_list):
         if each in content:
             flag = 1
             break
-    else:
+        else:
             flag = 0
-
     # 提醒使用者没有点天赋
     if "使用剩余 3 次" in content:
         print(content)
@@ -66,6 +66,7 @@ def move_click_reuse(void_position, sextant_or_compass):
     # 左键点击虚空石
     pyautogui.click(button="left")
 
+
 # 计算背包格子的横纵间隔
 def step_cal(location_1,location_2):
     row_step = abs((location_1[0] - location_2[0]) / 11.0)
@@ -73,6 +74,7 @@ def step_cal(location_1,location_2):
     return row_step,col_step
 
 
+# 自动存储罗盘
 def auto_save_compass():
     global global_run_speed
     (row_step, col_step) = step_cal(left_up_location,right_down_location)
@@ -85,7 +87,7 @@ def auto_save_compass():
     pyautogui.keyDown("ctrl")
     # 依次点击背包的格子
     for i in range(60):
-        if kb.is_pressed('end'):
+        if kb.is_pressed('esc'):
             log_print(logger, "结束键被按下,程序终止！！！")
             break
 
@@ -104,17 +106,18 @@ def auto_save_compass():
     pyautogui.keyUp("left")
 
 
-# 新版运行主体
+# 运行主体
 def whole_process_new(void_position, sextant_position, surveyor_compass_position, sextant_num, compass_num):
     global global_run_speed
     summary_dir = {}
 
     times = compass_num if (sextant_num >= compass_num) else sextant_num
     (row_step, col_step) = step_cal(left_up_location,right_down_location)
-
-    total_compass_in_one_bag = 0  # 用于记录当前这一背包充能罗盘中的个数，每次到六十个会清零
+    # 用于记录当前这一背包充能罗盘中的个数，每次到六十个会清零
+    total_compass_in_one_bag = 0
 
     for i in range(int(times)):
+        # 程序运行中结束程序
         if kb.is_pressed('end'):
             log_print(logger, "结束键被按下,程序终止！！！")
             break
@@ -327,6 +330,7 @@ def set_number():
     entry_compass.config(fg="gray")  # 设置前景色为白色，背景色为透明
     entry_compass.pack()  # 将输入框添加到窗口中
 
+    # 获取罗盘和六分仪的数量
     def get_input():
         global sextant_input
         global compass_input
@@ -336,8 +340,6 @@ def set_number():
 
     button_confirm = tk.ttk.Button(show_set_number_window, text="确定", command=get_input)
     button_confirm.place(relx=0.5, rely=0.7, anchor="center")  # 设置按钮在窗口中间
-
-    show_set_number_window.focus_force()
 
 
 # 绕开测试，直接确定速度挡位
@@ -362,7 +364,7 @@ def get_run_speed(entry_speed,show_set_speed_window):
         entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
 
 
-# 创建测试所用窗口
+# 创建测试速度所用窗口
 def test_run_speed(entry_speed):
     global global_run_speed
     try:
@@ -407,6 +409,7 @@ def test_run_speed(entry_speed):
         entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
 
 
+# 设置程序的运行速度
 def set_run_speed():
 
     show_set_speed_window = tk.Toplevel(root)
@@ -424,7 +427,7 @@ def set_run_speed():
     # 创建测试按钮
     test_button = tk.ttk.Button(show_set_speed_window, text=" \n  点我测试速度  \n ", command=lambda: test_run_speed(entry_speed))
     test_button.place(relx=0.3, rely=0.75, anchor="center")  # 设置按钮的位置
-    button_confirm = tk.ttk.Button(show_set_speed_window, text=" \n  确定  \n ", command=lambda: get_run_speed(entry_speed,show_set_speed_window))
+    button_confirm = tk.ttk.Button(show_set_speed_window, text=" \n  确定  \n ", command=lambda: get_run_speed(entry_speed, show_set_speed_window))
     button_confirm.place(relx=0.7, rely=0.75, anchor="center")  # 设置按钮的位置
 
 
@@ -449,11 +452,10 @@ global_run_speed = 2
 # 定义窗口的标签风格
 style = tk.ttk.Style()
 style.configure("poe_style.TLabel", font=("Times new roman", 16))
-
 # 创建提示文本
 label_remind_1 = tk.Label(root, text="记得在舆图界面打开背包和仓库！", font=("Courier", 15))
 label_remind_1.place(relx=0.5, rely=0.1, anchor="center")  # 设置提示文本
-label_remind_2 = tk.Label(root, text="点罗盘过程中按下方向键上方的end键停止！", font=("Courier", 15))
+label_remind_2 = tk.Label(root, text="点罗盘过程中按住方向键上方的end键停止！\n存包过程中按住ESC键停止", font=("Courier", 15))
 label_remind_2.place(relx=0.5, rely=0.9, anchor="center")  # 设置提示文本
 # 创建按钮
 button1 = tk.ttk.Button(root, text="点我设置坐标", command=show_window1)

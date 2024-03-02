@@ -18,6 +18,7 @@ def set_window(width, height, window, root):
     # 设置窗口的位置和大小
     window.geometry(f"{width}x{height}+{x}+{y}")
 
+
 # 复选框选择按钮--全选
 def select_all(compass_var_dir):
     for value in compass_var_dir.values():
@@ -73,9 +74,6 @@ def select_special(compass_var_dir, root):
     price_button.place(relx=0.5, rely=0.5, anchor="center")  # 设置按钮的位置
 
 
-
-
-
 # 复选框选择按钮--读取用户自定义配置
 def select_user_define(compass_var_dir, root):
     # 预先清空一遍
@@ -96,7 +94,7 @@ def select_user_define(compass_var_dir, root):
         try:
             with open(filepath, "r") as config_file:
                 config_data = json.load(config_file)
-#                print(config_data)
+                #print(config_data)
                 for compass_in_config, switch_in_config in config_data.items():
                     for compass, data in compass_var_dir.items():
                         if compass == compass_in_config:
@@ -122,7 +120,8 @@ def save_user_define(compass_var_dir):
     )
 
     save_data = {}
-    #compass_var_dir格式为 {名称: [价格, 复选框内存地址, 复选框的值]}
+
+    # compass_var_dir格式为 {名称: [价格, 复选框内存地址, 复选框的值]}
     for key, value in compass_var_dir.items():
         value[2] = value[1].get()
         save_data[key] = value[2]
@@ -157,13 +156,10 @@ def confirm_config(compass_var_dir, root):
         file_error_label.pack()
 
 
-
 def gen_checkbuttons_for_all_compass(price_compass_dir, root):
     checkbuttons_window = tk.Toplevel(root)
     checkbuttons_window.title("罗盘过滤选择！")
-    checkbuttons_window.geometry("1800x800")  # 设置窗口大小
-    # 设置基础设置窗口为置顶
-    checkbuttons_window.attributes('-topmost', True)
+    checkbuttons_window.geometry("1700x1000")  # 设置窗口大小
 
     location_index = 0
     compass_var_dir = {}
@@ -171,7 +167,7 @@ def gen_checkbuttons_for_all_compass(price_compass_dir, root):
     # key是价格, value是罗盘名称
     for key, value in price_compass_dir.items():
         # 创建坐标
-        location_index_x, location_index_y = divmod(location_index, 12)
+        location_index_x, location_index_y = divmod(location_index, 14)
         # 创建复选框
         var = tk.IntVar()
         checkbutton = tk.Checkbutton(checkbuttons_window, text=f"{key}\n价格为:{value} c", variable=var)
@@ -182,26 +178,29 @@ def gen_checkbuttons_for_all_compass(price_compass_dir, root):
         # 返回价格,罗盘和复选框的字典，方便后面进行高于多少价格的判断，格式为{名称:[价格,复选框内存地址,复选框的值]}
         compass_var_dir[key] = [value, var, var.get()]
 
-
-
     # 创建全选和反选按钮
-    select_all_button = tk.Button(checkbuttons_window, text="Select All", command=lambda: select_all(compass_var_dir))
+    select_all_button = tk.Button(checkbuttons_window, text=" \n        全选        \n ", command=lambda: select_all(compass_var_dir))
     select_all_button.grid(row=14, column=1)
 
-    deselect_all_button = tk.Button(checkbuttons_window, text="Deselect All", command=lambda: deselect_all(compass_var_dir))
+    deselect_all_button = tk.Button(checkbuttons_window, text=" \n      全不选      \n ", command=lambda: deselect_all(compass_var_dir))
     deselect_all_button.grid(row=14, column=2)
 
-    deselect_all_button = tk.Button(checkbuttons_window, text="根据价格设置", command=lambda: select_special(compass_var_dir, checkbuttons_window))
-    deselect_all_button.grid(row=14, column=3)
+    price_config_button = tk.Button(checkbuttons_window, text=" \n  根据价格配置  \n ", command=lambda: select_special(compass_var_dir, checkbuttons_window))
+    price_config_button.grid(row=14, column=3)
 
-    user_define_button = tk.Button(checkbuttons_window, text="读取已有设置", command=lambda: select_user_define(compass_var_dir, checkbuttons_window))
-    user_define_button.grid(row=16, column=1)
+    load_config_button = tk.Button(checkbuttons_window, text=" \n  读取已有配置  \n ", command=lambda: select_user_define(compass_var_dir, checkbuttons_window))
+    load_config_button.grid(row=15, column=1)
 
-    user_define_button = tk.Button(checkbuttons_window, text="保存当前设置", command=lambda: save_user_define(compass_var_dir))
-    user_define_button.grid(row=16, column=2)
+    save_config_button = tk.Button(checkbuttons_window, text=" \n  保存当前配置  \n ", command=lambda: save_user_define(compass_var_dir))
+    save_config_button.grid(row=15, column=2)
 
-    confirm_button = tk.Button(checkbuttons_window, text="     确定     ", command=lambda: confirm_config(compass_var_dir, checkbuttons_window))
-    confirm_button.grid(row=16, column=3)
+    confirm_button = tk.Button(checkbuttons_window, text=" \n        确定        \n ", command=lambda: confirm_config(compass_var_dir, checkbuttons_window))
+    confirm_button.grid(row=15, column=3)
+
+    # 创建相关说明文本
+    show_text = "\n\n国服数据来源易刷E-farm\nE-farm在线人数越多,价格越精确\n请多多支持！\n\n国际服数据来源TFT！\n\n"
+    label_show_text = tk.Label(checkbuttons_window, text=show_text, font=("Courier", 15))
+    label_show_text.grid(row=17, column=2)  # 设置提示文本
 
 
 def Global_checkbuttons(root, choose_server_window):
@@ -214,13 +213,20 @@ def Global_checkbuttons(root, choose_server_window):
 
 
 def Tencent_checkbuttons(root, choose_server_window):
+
     Tencent_Server_Url = "https://gitee.com/hhzxxx/exilence-next-tx-release/raw/master/price2.txt"
     tencent_compass_data = tsp.Tencent_compass_data(Tencent_Server_Url)
     choose_server_window.destroy()
     gen_checkbuttons_for_all_compass(tsp.Tencent_compass_data_alias(tencent_compass_data, tsp.compass_list_all), root)
 
 
+def None_checkbuttons(root, choose_server_window):
 
+    null_compass_price_dir = {}
+    choose_server_window.destroy()
+    for english, chinese in gsp.compass_english2chinese.items():
+        null_compass_price_dir[chinese] = 0
+    gen_checkbuttons_for_all_compass(null_compass_price_dir, root)
 
 
 # todo
@@ -228,13 +234,14 @@ def choose_server(root):
 
     choose_server_window = tk.Toplevel(root)
     choose_server_window.title("选择服务器")
-    set_window(200, 200, choose_server_window, root)
+    set_window(300, 300, choose_server_window, root)
 
     button_chinese = tk.Button(choose_server_window, text="国服数据", command=lambda: Tencent_checkbuttons(root,choose_server_window))
-    button_chinese.place(relx=0.5, rely=0.75, anchor="center")  # 设置按钮的位置
+    button_chinese.place(relx=0.5, rely=0.8, anchor="center")  # 设置国服按钮的位置
     button_english = tk.Button(choose_server_window, text="国际服数据", command=lambda: Global_checkbuttons(root,choose_server_window))
-    button_english.place(relx=0.5, rely=0.3, anchor="center")  # 设置按钮的位置
-
+    button_english.place(relx=0.5, rely=0.3, anchor="center")  # 设置国际服按钮的位置
+    button_league_start = tk.Button(choose_server_window, text="赛季初没数据点我", command=lambda: None_checkbuttons(root,choose_server_window))
+    button_league_start.place(relx=0.5, rely=0.55, anchor="center")  # 设置不带价格的按钮位置
 
 # 最终得到的将要被保留的罗盘列表 全局变量
 compass_list=[]
