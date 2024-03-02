@@ -7,12 +7,6 @@
     <list default="true" id="220aec29-0a9b-44b4-bf45-e913ae74a524" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/Analysis-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/EXE-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/PKG-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/PYZ-00.pyz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/auto_sextant.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/auto_sextant.pkg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/auto_sextant.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/auto_sextant.exe" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
