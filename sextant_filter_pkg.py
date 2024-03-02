@@ -92,7 +92,7 @@ def select_user_define(compass_var_dir, root):
     else:
         # 从配置文件加载状态
         try:
-            with open(filepath, "r") as config_file:
+            with open(filepath, "r", encoding="utf-8") as config_file:
                 config_data = json.load(config_file)
                 #print(config_data)
                 for compass_in_config, switch_in_config in config_data.items():
@@ -128,7 +128,7 @@ def save_user_define(compass_var_dir):
 
     if filepath:
         # 用户选择了文件名，执行保存操作
-        with open(filepath, "w") as file:
+        with open(filepath, "w", encoding="utf-8") as file:
             json.dump(save_data, file)
 
 
