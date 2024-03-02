@@ -33,14 +33,47 @@ def deselect_all(compass_var_dir):
 
 
 # 复选框选择按钮--根据价格进行选择
-def select_special(compass_var_dir, price_above,root):
+def select_special(compass_var_dir, root):
     # 预先清空一遍
     deselect_all(compass_var_dir)
+    select_special_window = tk.Toplevel(root)
+    select_special_window.title("设置最低价格！")
+    set_window(200, 200,  select_special_window, root)
 
-    for key, value in compass_var_dir.items():
-        if value[0] >= float(price_above):
+    select_special_label = tk.Label(select_special_window, text="请输入最低价格，C为单位")
+    select_special_label.place(relx=0.5, rely=0.1, anchor="center")  # 设置提示文本
+
+    entry_price = tk.Entry(select_special_window)
+    entry_price.insert(0, "10")  # 设置默认文本
+    entry_price.config(fg="gray")  # 设置前景色为白色，背景色为透明
+    entry_price.place(relx=0.5, rely=0.3, anchor="center")  # 将输入框添加到窗口中
+
+    def get_input():
+        global price_above
+        price_above = entry_price.get()
+
+        try:
+            price_above = float(price_above)
+        except ValueError:
+            # raise Error!
+            price_error_window = tk.Toplevel(root)
+            price_error_window.title("输入错误！！！！")
+            set_window(300, 300, price_error_window, root)
+            # 文本提示
+            price_error_remind = tk.Label(price_error_window, text="请输入数字！！！！", font=("Courier", 12))
+            price_error_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
+
+        for key, value in compass_var_dir.items():
+            if value[0] >= price_above:
                 var = value[1]
                 var.set(1)  # 设置所有复选框为选中状态
+        select_special_window.destroy()
+
+    price_button = tk.Button(select_special_window, text="确定", command=get_input)
+    price_button.place(relx=0.5, rely=0.5, anchor="center")  # 设置按钮的位置
+
+
+
 
 
 # 复选框选择按钮--读取用户自定义配置
@@ -63,7 +96,7 @@ def select_user_define(compass_var_dir, root):
         try:
             with open(filepath, "r") as config_file:
                 config_data = json.load(config_file)
-                print(config_data)
+#                print(config_data)
                 for compass_in_config, switch_in_config in config_data.items():
                     for compass, data in compass_var_dir.items():
                         if compass == compass_in_config:
@@ -100,7 +133,7 @@ def save_user_define(compass_var_dir):
             json.dump(save_data, file)
 
 
-def confirm_config(compass_var_dir,root):
+def confirm_config(compass_var_dir, root):
     global compass_list
     try:
         for key, value in compass_var_dir.items():
@@ -110,22 +143,28 @@ def confirm_config(compass_var_dir,root):
 
         confirm_window = tk.Toplevel(root)
         confirm_window.title("配置成功！")
+        # 设置基础设置窗口为置顶
+        confirm_window.attributes('-topmost', True)
         set_window(200, 200, confirm_window, root)
         confirm_label = tk.Label(confirm_window, text="配置成功！！")
         confirm_label.pack()
 
     except ValueError:
         file_error_window = tk.Toplevel(root)
-        file_error_window.title("配置=出错！")
+        file_error_window.title("配置出错！")
         set_window(200, 200, file_error_window, root)
         file_error_label = tk.Label(file_error_window, text="请联系作者！！")
         file_error_label.pack()
+
 
 
 def gen_checkbuttons_for_all_compass(price_compass_dir, root):
     checkbuttons_window = tk.Toplevel(root)
     checkbuttons_window.title("罗盘过滤选择！")
     checkbuttons_window.geometry("1800x800")  # 设置窗口大小
+    # 设置基础设置窗口为置顶
+    checkbuttons_window.attributes('-topmost', True)
+
     location_index = 0
     compass_var_dir = {}
 
@@ -152,7 +191,7 @@ def gen_checkbuttons_for_all_compass(price_compass_dir, root):
     deselect_all_button = tk.Button(checkbuttons_window, text="Deselect All", command=lambda: deselect_all(compass_var_dir))
     deselect_all_button.grid(row=14, column=2)
 
-    deselect_all_button = tk.Button(checkbuttons_window, text="根据价格设置", command=lambda: select_special(compass_var_dir, 5, root))
+    deselect_all_button = tk.Button(checkbuttons_window, text="根据价格设置", command=lambda: select_special(compass_var_dir, checkbuttons_window))
     deselect_all_button.grid(row=14, column=3)
 
     user_define_button = tk.Button(checkbuttons_window, text="读取已有设置", command=lambda: select_user_define(compass_var_dir, checkbuttons_window))
@@ -191,9 +230,9 @@ def choose_server(root):
     choose_server_window.title("选择服务器")
     set_window(200, 200, choose_server_window, root)
 
-    button_chinese = tk.ttk.Button(choose_server_window, text="国服数据", command=lambda: Tencent_checkbuttons(root,choose_server_window))
+    button_chinese = tk.Button(choose_server_window, text="国服数据", command=lambda: Tencent_checkbuttons(root,choose_server_window))
     button_chinese.place(relx=0.5, rely=0.75, anchor="center")  # 设置按钮的位置
-    button_english = tk.ttk.Button(choose_server_window, text="国际服数据", command=lambda: Global_checkbuttons(root,choose_server_window))
+    button_english = tk.Button(choose_server_window, text="国际服数据", command=lambda: Global_checkbuttons(root,choose_server_window))
     button_english.place(relx=0.5, rely=0.3, anchor="center")  # 设置按钮的位置
 
 

@@ -5,7 +5,7 @@ import random
 import pyperclip
 import tkinter as tk
 import log_printer  #输入日志
-import tencent_server_price
+
 import sextant_filter_pkg
 
 
@@ -85,7 +85,7 @@ def auto_save_compass():
     pyautogui.keyDown("ctrl")
     # 依次点击背包的格子
     for i in range(60):
-        if kb.is_pressed('esc'):
+        if kb.is_pressed('end'):
             log_print(logger, "结束键被按下,程序终止！！！")
             break
 
@@ -126,13 +126,13 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
 
             flag, sextant_text = sextant_filter(sextant_filter_pkg.compass_list)
 
-            if flag == 1:
+            if flag == 0:
                 continue
             elif flag == 2:
                 log_print(logger, "检测到3次罗盘，程序停止！")
                 break
-            else:
-                log_print(logger, ("命中：" + sextant_text))
+            elif flag == 1:
+                # 统计各种罗盘都命中了多少次
                 if sextant_text in summary_dir.keys():
                     summary_dir[sextant_text] = summary_dir[sextant_text] + 1
                 else:
@@ -161,6 +161,8 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                         log_print(logger, "自动存包结束！")
                     else:
                         break
+            else:
+                continue
             # 等待一段时间
             time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
 
@@ -174,7 +176,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
     log_print(logger,"本次执行获得罗盘如下：")
     log_print(logger,"***********************")
     for key, value in summary_dir.items():
-        log_print(logger,(key + "共[%d]个"%value))
+        log_print(logger, (key + "共[%d]个"%value))
 
 
 def set_window(width, height, window):
@@ -377,7 +379,7 @@ def test_run_speed(entry_speed):
         set_window(700, 500, test_speed_window)
 
         # 文本提示
-        test_remind = tk.Label(test_speed_window, text="观察鼠标移动速度！\n测试结束后此窗口自动关闭！\n过程中按住esc即可停止",
+        test_remind = tk.Label(test_speed_window, text="观察鼠标移动速度！\n这里不代表实际程序运行的速度！\n测试结束后此窗口自动关闭！\n过程中按住end即可停止",
                                font=("Courier", 18))
         test_remind.place(relx=0.5, rely=0.5, anchor="center")  # 设置提示文本
 
@@ -386,7 +388,7 @@ def test_run_speed(entry_speed):
         # 循环点击，测试鼠标速度
         for i in (range(10)):
             # 提前关闭窗口
-            if kb.is_pressed('esc'):
+            if kb.is_pressed('end'):
                 break
             else:
                 pyautogui.moveTo(*(test_x, test_y), duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
@@ -449,8 +451,10 @@ style = tk.ttk.Style()
 style.configure("poe_style.TLabel", font=("Times new roman", 16))
 
 # 创建提示文本
-label_remind = tk.Label(root, text="记得在舆图界面打开背包和仓库！", font=("Courier", 15))
-label_remind.place(relx=0.5, rely=0.1, anchor="center")  # 设置提示文本
+label_remind_1 = tk.Label(root, text="记得在舆图界面打开背包和仓库！", font=("Courier", 15))
+label_remind_1.place(relx=0.5, rely=0.1, anchor="center")  # 设置提示文本
+label_remind_2 = tk.Label(root, text="点罗盘过程中按下方向键上方的end键停止！", font=("Courier", 15))
+label_remind_2.place(relx=0.5, rely=0.9, anchor="center")  # 设置提示文本
 # 创建按钮
 button1 = tk.ttk.Button(root, text="点我设置坐标", command=show_window1)
 button1.place(relx=0.2, rely=0.3, anchor="center")  # 设置按钮的位置
