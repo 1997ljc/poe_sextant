@@ -20,7 +20,7 @@ missing module named grp - imported by shutil (delayed, optional), tarfile (opti
 missing module named _posixsubprocess - imported by subprocess (conditional), multiprocessing.util (delayed)
 missing module named fcntl - imported by subprocess (optional), keyboard._nixcommon (delayed)
 missing module named typing_extensions - imported by pandas._typing (conditional), urllib3._collections (conditional), urllib3.contrib.emscripten.fetch (conditional), pkg_resources._vendor.packaging.metadata (conditional, optional), packaging.metadata (conditional, optional)
-missing module named posix - imported by os (conditional, optional), shutil (conditional), importlib._bootstrap_external (conditional), posixpath (optional)
+missing module named posix - imported by os (conditional, optional), posixpath (optional), shutil (conditional), importlib._bootstrap_external (conditional)
 missing module named resource - imported by posix (top-level)
 missing module named _manylinux - imported by pkg_resources._vendor.packaging._manylinux (delayed, optional), packaging._manylinux (delayed, optional)
 missing module named jnius - imported by pkg_resources._vendor.platformdirs.android (delayed, optional)

@@ -4,6 +4,7 @@ import keyboard as kb
 import random
 import pyperclip
 import tkinter as tk
+import os
 import log_printer  # 输入日志
 
 import sextant_filter_pkg
@@ -16,13 +17,18 @@ def log_print(logger, msg):
 
 
 # 充能罗盘的过滤，过滤数据来源于用户在配置界面进行的选择
-def sextant_filter(compass_list):
+def sextant_filter():
     # list = ["传奇怪物掉落腐化", "地图首领由守卫守护", "盗贼", "哈尔", "阻灵", "额外的传奇", "菌潮遭遇战",
     #         "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
     #         "托沃", "索伏", "艾许", "击败后可转化", "地图的品质加成", "锈蚀", "火焰", "冰霜", "闪电",
     #         "混沌", "木桶", "回复的生命和", "物理", "你的地图的品质为", "瓦尔之灵", "张额外地图", "腐化的瓦尔怪物",
     #         "反射伤害", "抛光", "尼克", "贪婪", "驱灵"]
     # list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
+
+    compass_list = []
+    with open(".compass_config", "r", encoding="utf-8") as f:
+        for each_line in f.readlines():
+            compass_list.append(each_line.replace("\n",""))
 
     flag = 0
 
@@ -127,7 +133,7 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
             move_click_reuse(void_position, (sextant_position[0] + 5 * random.random(),
                                              sextant_position[1] + 5 * random.random()))
 
-            flag, sextant_text = sextant_filter(sextant_filter_pkg.compass_list)
+            flag, sextant_text = sextant_filter()
 
             if flag == 0:
                 continue
@@ -135,6 +141,8 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 log_print(logger, "检测到3次罗盘，程序停止！")
                 break
             elif flag == 1:
+                # 日志框内进行打印
+                log_print(logger, ("命中：" + sextant_text))
                 # 统计各种罗盘都命中了多少次
                 if sextant_text in summary_dir.keys():
                     summary_dir[sextant_text] = summary_dir[sextant_text] + 1
@@ -170,9 +178,10 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
             time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
 
     # 程序结束再存一次包
-    log_print(logger, "程序结束，自动存包开始！")
-    auto_save_compass()
-    log_print(logger, "自动存包结束！")
+    if auto_save.get():
+        log_print(logger, "程序结束，自动存包开始！")
+        auto_save_compass()
+        log_print(logger, "自动存包结束！")
 
     # 输出总结报告
     log_print(logger,"***********************")

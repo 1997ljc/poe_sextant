@@ -135,10 +135,15 @@ def save_user_define(compass_var_dir):
 def confirm_config(compass_var_dir, root):
     global compass_list
     try:
+        compass_list = []
         for key, value in compass_var_dir.items():
             value[2] = value[1].get()
             if value[2] == 1:
                 compass_list.append(key)
+        print(compass_list)
+        with open(".compass_config", "w", encoding="utf-8") as f:
+            for each in compass_list:
+                f.write(each + '\n')
 
         confirm_window = tk.Toplevel(root)
         confirm_window.title("配置成功！")
