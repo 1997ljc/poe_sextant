@@ -7,6 +7,7 @@
     <list default="true" id="220aec29-0a9b-44b4-bf45-e913ae74a524" name="更改" comment="">
       <change afterPath="$PROJECT_DIR$/compass11.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sextant_filter_pkg.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
