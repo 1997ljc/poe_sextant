@@ -5,16 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="926adac9-358d-4e0f-964d-0914a55cc4fc" name="更改" comment="">
+      <change beforePath="$PROJECT_DIR$/.compass_config" beforeDir="false" afterPath="$PROJECT_DIR$/.compass_config" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/auto_sextant/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/Analysis-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/auto_sextant/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/EXE-00.toc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/auto_sextant/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/PKG-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/PYZ-00.pyz" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/PYZ-00.pyz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/auto_sextant/auto_sextant.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/auto_sextant.pkg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/auto_sextant/warn-auto_sextant.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/warn-auto_sextant.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/auto_sextant/xref-auto_sextant.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/xref-auto_sextant.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/auto_sextant.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/auto_sextant.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/poe_auto_sextant.py" beforeDir="false" afterPath="$PROJECT_DIR$/poe_auto_sextant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sextant_filter_pkg.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,15 +37,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "ignore.virus.scanning.warn.message": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Python.poe_auto_sextant">
     <configuration name="poe_auto_sextant" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="poe_sextant" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -65,9 +67,31 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="poe_sextant" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.poe_auto_sextant" />
+        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>

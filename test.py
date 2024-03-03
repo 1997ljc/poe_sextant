@@ -1,17 +1,24 @@
 import tkinter as tk
 
+def on_scroll(*args):
+    canvas.yview(*args)  # 将滚动条与画布关联
+
 root = tk.Tk()
+root.title("垂直滚动条示例")
 
-# 创建两个标签和两个文本框
-label1 = tk.Label(root, text="Label 1")
-label2 = tk.Label(root, text="Label 2")
-entry1 = tk.Entry(root)
-entry2 = tk.Entry(root)
+# 创建一个画布
+canvas = tk.Canvas(root, width=400, height=200, bg="white")
+canvas.pack()
 
-# 使用grid布局放置组件
-label1.grid(row=0, column=0)
-entry1.grid(row=0, column=1, columnspan=2)  # entry1横跨2列
-label2.grid(row=1, column=0)
-entry2.grid(row=1, column=1)
+# 创建一个垂直滚动条
+scrollbar = tk.Scrollbar(root, orient="vertical", command=on_scroll)
+scrollbar.pack(side="right", fill="y")  # 放置在右侧并填充垂直方向
+
+# 将画布与滚动条关联
+canvas.config(yscrollcommand=scrollbar.set)
+
+# 在画布上添加一些文本
+for i in range(20):
+    canvas.create_text(200, 20 * i, text=f"Line {i + 1}", anchor="w")
 
 root.mainloop()

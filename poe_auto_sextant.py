@@ -8,6 +8,7 @@ import os
 import log_printer  # 输入日志
 
 import sextant_filter_pkg
+import tencent_server_price as tsp
 
 
 # 在窗口打印日志并更新
@@ -17,7 +18,7 @@ def log_print(logger, msg):
 
 
 # 充能罗盘的过滤，过滤数据来源于用户在配置界面进行的选择
-def sextant_filter():
+def sextant_filter(compass_list):
     # list = ["传奇怪物掉落腐化", "地图首领由守卫守护", "盗贼", "哈尔", "阻灵", "额外的传奇", "菌潮遭遇战",
     #         "腐化的异界地图中的地图首领", "共鸣", "地图首领额外掉落一件传奇物品", "尼多", "你的魔法地图额外包含",
     #         "托沃", "索伏", "艾许", "击败后可转化", "地图的品质加成", "锈蚀", "火焰", "冰霜", "闪电",
@@ -25,10 +26,6 @@ def sextant_filter():
     #         "反射伤害", "抛光", "尼克", "贪婪", "驱灵"]
     # list_2 = ["精华", "额外深渊", "未鉴定的地图中"]
 
-    compass_list = []
-    with open(".compass_config", "r", encoding="utf-8") as f:
-        for each_line in f.readlines():
-            compass_list.append(each_line.replace("\n",""))
 
     flag = 0
 
@@ -41,26 +38,27 @@ def sextant_filter():
     content = content.replace("\n", '')
     content = content[content.find("--------") + 8:]
     content = content[content.find("--------") + 8:]
-    content = content[:content.find("使用剩余")]
+    # content = content[:content.find("使用剩余")]
     content = content.replace("(enchant)", "")
 
-    for each in compass_list:
-        if each in content:
-            flag = 1
-            break
-        else:
-            flag = 0
     # 提醒使用者没有点天赋
     if "使用剩余 3 次" in content:
         print(content)
         flag = 2
+    else:
+        for each in compass_list:
+            if each in content:
+                flag = 1
+                break
+    content_format = content[:content.find("使用剩余")]
 
-    return flag, content
+    return flag, content_format
 
 
 # 模拟鼠标在六分仪和虚空石之间的点击操作
 def move_click_reuse(void_position, sextant_or_compass):
     global global_run_speed
+
     # 移动到六分仪处
     pyautogui.moveTo(*sextant_or_compass, duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
     # 右键点击六分仪
@@ -71,6 +69,8 @@ def move_click_reuse(void_position, sextant_or_compass):
     pyautogui.moveTo(*void_position, duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
     # 左键点击虚空石
     pyautogui.click(button="left")
+    # 加一些延时，防止ctrl C的是上一次的文本
+    time.sleep(0.1+(global_run_speed-1)/90.0)  # 0.1 --- 0.2
 
 
 # 计算背包格子的横纵间隔
@@ -122,6 +122,13 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
     # 用于记录当前这一背包充能罗盘中的个数，每次到六十个会清零
     total_compass_in_one_bag = 0
 
+    # 获取需要的罗盘列表
+    compass_list = []
+    with open(".compass_config", "r", encoding="utf-8") as f:
+        for each_line in f.readlines():
+            compass_list.append(each_line.replace("\n",""))
+    print(compass_list)
+
     for i in range(int(times)):
         # 程序运行中结束程序
         if kb.is_pressed('end'):
@@ -133,9 +140,11 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
             move_click_reuse(void_position, (sextant_position[0] + 5 * random.random(),
                                              sextant_position[1] + 5 * random.random()))
 
-            flag, sextant_text = sextant_filter()
+            flag, sextant_text = sextant_filter(compass_list)
 
             if flag == 0:
+                # 日志框内进行打印
+                log_print(logger, ("舍弃：" + sextant_text))
                 continue
             elif flag == 2:
                 log_print(logger, "检测到3次罗盘，程序停止！")
@@ -359,7 +368,7 @@ def get_run_speed(entry_speed,show_set_speed_window):
         run_speed = int(run_speed)
         global_run_speed = run_speed
 
-        if (run_speed > 10) or (run_speed < 1):
+        if (run_speed > 1000) or (run_speed < 1):
             raise ValueError
         log_print(logger, "速度挡位设置成功为：%d"%global_run_speed)
         show_set_speed_window.destroy()
@@ -369,7 +378,7 @@ def get_run_speed(entry_speed,show_set_speed_window):
         speed_error_window.title("输入错误！！！！")
         set_window(300, 300, speed_error_window)
         # 文本提示
-        entry_speed_remind = tk.Label(speed_error_window, text="请输入1-10的数字！！！！",font=("Courier", 12))
+        entry_speed_remind = tk.Label(speed_error_window, text="请输入1-1000的数字！！！！",font=("Courier", 12))
         entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
 
 
@@ -381,7 +390,7 @@ def test_run_speed(entry_speed):
         run_speed = int(run_speed)
         global_run_speed = run_speed
 
-        if (run_speed > 10) or (run_speed < 1):
+        if (run_speed > 1000) or (run_speed < 1):
             raise ValueError
 
         # 创建测试用窗口
