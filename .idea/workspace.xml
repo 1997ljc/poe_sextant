@@ -8,7 +8,10 @@
       <change afterPath="$PROJECT_DIR$/compass11.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/sextant_filter_pkg.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
+=======
+>>>>>>> 7ba258a14faf515ae5e66a9107cf5fc4bd201b88
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
