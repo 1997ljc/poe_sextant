@@ -54,7 +54,6 @@ def sextant_filter(compass_list):
 
     return flag, content_format
 
-
 # 模拟鼠标在六分仪和虚空石之间的点击操作
 def move_click_reuse(void_position, sextant_or_compass):
     global global_run_speed
@@ -127,24 +126,42 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
     with open(".compass_config", "r", encoding="utf-8") as f:
         for each_line in f.readlines():
             compass_list.append(each_line.replace("\n",""))
-    print(compass_list)
+
+    always_with_shift = 1
 
     for i in range(int(times)):
+
+        # 按住shift
+        pyautogui.keyDown("shift")
+
         # 程序运行中结束程序
         if kb.is_pressed('end'):
             log_print(logger, "结束键被按下,程序终止！！！")
+            # 松开shift
+            pyautogui.keyUp("shift")
             break
         else:
             log_print(logger, "共%d次，当前第%d次" % (int(times), (i + 1)))
 
-            move_click_reuse(void_position, (sextant_position[0] + 5 * random.random(),
-                                             sextant_position[1] + 5 * random.random()))
+            if always_with_shift == 1:
+                move_click_reuse(void_position, (sextant_position[0] + 5 * random.random(),
+                                                 sextant_position[1] + 5 * random.random()))
+            else:
+                # 等待一段时间
+                time.sleep(0.1 + (global_run_speed - 1) / 90.0)  # 0.1 --- 0.2
+                # 移动到虚空石处
+                pyautogui.moveTo(*void_position, duration=0.05 + (2 * random.random() - 1) * (global_run_speed / 500.0))
+                # 左键点击虚空石
+                pyautogui.click(button="left")
+                # 加一些延时，防止ctrl C的是上一次的文本
+                time.sleep(0.1 + (global_run_speed - 1) / 90.0)  # 0.1 --- 0.2
 
             flag, sextant_text = sextant_filter(compass_list)
 
             if flag == 0:
                 # 日志框内进行打印
                 log_print(logger, ("舍弃：" + sextant_text))
+                always_with_shift = 0
                 continue
             elif flag == 2:
                 log_print(logger, "检测到3次罗盘，程序停止！")
@@ -158,8 +175,14 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 else:
                     summary_dir[sextant_text] = 1
 
+                # 松开shift
+                pyautogui.keyUp("shift")
+                # 等待一段时间
+                time.sleep(0.1 + (global_run_speed - 1) / 90.0)  # 0.1 --- 0.2
+                #存盘
                 move_click_reuse(void_position, (surveyor_compass_position[0] + 3 * random.random(),
                                                  surveyor_compass_position[1] + 3 * random.random()))
+
 
                 i_5_a, i_5_b = divmod(total_compass_in_one_bag, 5)  # 前面商，后面余数
 
@@ -171,6 +194,9 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 pyautogui.click(button="left")
 
                 total_compass_in_one_bag = total_compass_in_one_bag + 1
+
+                # 标志位再次置1
+                always_with_shift = 1
                 # 满一包了自动停止，或者这里做成自动存包
                 if total_compass_in_one_bag == 60:
                     total_compass_in_one_bag = 0
@@ -181,10 +207,13 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                         log_print(logger, "自动存包结束！")
                     else:
                         break
+
             else:
                 continue
             # 等待一段时间
             time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
+    # 松开shift
+    pyautogui.keyUp("shift")
 
     # 程序结束再存一次包
     if auto_save.get():
