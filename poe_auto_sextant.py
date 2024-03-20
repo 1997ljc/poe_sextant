@@ -139,6 +139,8 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
             log_print(logger, "结束键被按下,程序终止！！！")
             # 松开shift
             pyautogui.keyUp("shift")
+            # 加一些延时
+            time.sleep(0.1 + (global_run_speed - 1) / 90.0)  # 0.1 --- 0.2
             break
         else:
             log_print(logger, "共%d次，当前第%d次" % (int(times), (i + 1)))
@@ -162,6 +164,8 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 # 日志框内进行打印
                 log_print(logger, ("舍弃：" + sextant_text))
                 always_with_shift = 0
+                # 加一些延时
+                time.sleep(0.1 + (global_run_speed - 1) / 90.0)  # 0.1 --- 0.2
                 continue
             elif flag == 2:
                 log_print(logger, "检测到3次罗盘，程序停止！")
@@ -183,7 +187,6 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 move_click_reuse(void_position, (surveyor_compass_position[0] + 3 * random.random(),
                                                  surveyor_compass_position[1] + 3 * random.random()))
 
-
                 i_5_a, i_5_b = divmod(total_compass_in_one_bag, 5)  # 前面商，后面余数
 
                 curr_location = ((right_down_location[0] - i_5_a * row_step * 1.0 + 3 * random.random()),
@@ -192,8 +195,6 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                 pyautogui.moveTo(*curr_location, duration=0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
                 # 放下六分仪罗盘
                 pyautogui.click(button="left")
-
-                total_compass_in_one_bag = total_compass_in_one_bag + 1
 
                 # 标志位再次置1
                 always_with_shift = 1
@@ -207,13 +208,20 @@ def whole_process_new(void_position, sextant_position, surveyor_compass_position
                         log_print(logger, "自动存包结束！")
                     else:
                         break
+                else:
+                    total_compass_in_one_bag = total_compass_in_one_bag + 1
 
             else:
                 continue
             # 等待一段时间
             time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
+
+    # 等待一段时间
+    time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
     # 松开shift
     pyautogui.keyUp("shift")
+    # 等待一段时间
+    time.sleep(0.05+(2 * random.random() - 1)*(global_run_speed/500.0))
 
     # 程序结束再存一次包
     if auto_save.get():
@@ -452,7 +460,7 @@ def test_run_speed(entry_speed):
         speed_error_window.title("输入错误！！！！")
         set_window(300, 300, speed_error_window)
         # 文本提示
-        entry_speed_remind = tk.Label(speed_error_window, text="请输入1-10的数字！！！！",font=("Courier", 12))
+        entry_speed_remind = tk.Label(speed_error_window, text="请输入1-1000的数字！！！！",font=("Courier", 12))
         entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
 
 
@@ -469,7 +477,7 @@ def set_run_speed():
     entry_speed.place(relx=0.5, rely=0.45, anchor="center")  # 输入框位置
 
     # 文本提示
-    entry_speed_remind = tk.Label(show_set_speed_window, text="输入1(快)-10(慢)的数字选择速度挡位！", font=("Courier", 12))
+    entry_speed_remind = tk.Label(show_set_speed_window, text="输入1(快)-1000(慢)的数字选择速度挡位！", font=("Courier", 12))
     entry_speed_remind.place(relx=0.5, rely=0.2, anchor="center")  # 设置提示文本
     # 创建测试按钮
     test_button = tk.ttk.Button(show_set_speed_window, text=" \n  点我测试速度  \n ", command=lambda: test_run_speed(entry_speed))
