@@ -5,23 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="926adac9-358d-4e0f-964d-0914a55cc4fc" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/.compass_config" beforeDir="false" afterPath="$PROJECT_DIR$/.compass_config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/traditional_chinese.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/Analysis-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/Analysis-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/EXE-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/EXE-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/PKG-00.toc" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/PKG-00.toc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/auto_sextant.pkg" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/auto_sextant.pkg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/warn-auto_sextant.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/warn-auto_sextant.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/auto_sextant/xref-auto_sextant.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/auto_sextant/xref-auto_sextant.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/auto_sextant.exe" beforeDir="false" afterPath="$PROJECT_DIR$/dist/auto_sextant.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/poe_auto_sextant.py" beforeDir="false" afterPath="$PROJECT_DIR$/poe_auto_sextant.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/global_serer_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/global_serer_price.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sextant_filter_pkg.py" beforeDir="false" afterPath="$PROJECT_DIR$/sextant_filter_pkg.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tencent_server_price.py" beforeDir="false" afterPath="$PROJECT_DIR$/tencent_server_price.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

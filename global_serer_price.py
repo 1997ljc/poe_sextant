@@ -2,6 +2,8 @@ import requests
 import pandas as pd
 import json
 
+import traditional_chinese
+
 
 def load_TFTdata_from_github(URL_TFT_DATA):
     print(f"Requesting data from TFT Github")
@@ -31,7 +33,7 @@ def Global_compass_data_alias(compass_price_dir, compass_english2chinese):
 
 compass_english2chinese = {"Yellow Plants": "地图内的庄园至少有一片黄庄稼",
                            "Mirror of Delirium": "地图中有一个惊悸迷雾之镜",
-                           "Beyond": "击败敌人将会吸引更强大的怪物登场",
+                           "Beyond": "你的地图中的超越恶魔群规模提高",
                            "Blue Plants": "至少有一片蓝庄稼",
                            "Purple Plants": "至少有一片紫庄稼",
                            "Sacred Grove": "你的地图包含古灵庄园",
@@ -96,7 +98,7 @@ compass_english2chinese = {"Yellow Plants": "地图内的庄园至少有一片�
                            "Ritual Rerolling": "在你的地图中的驱灵祭坛处第1次重置恩典无消耗",
                            "Rusted Scarab": "前 3 个被附身的怪物会掉落 1 个额外的锈蚀圣甲虫",
                            "Tormented Graverobber": "前 3 个被附身的怪物会掉落 1 个额外的传奇物品",
-                           "Ultimatum": "地图内有致命贪婪遭遇战",
+                           # "Ultimatum": "地图内有致命贪婪遭遇战",
                            "Unique Monsters Drop Corrupted": "传奇怪物掉落腐化物品",
                            "Vaal Soul On Kill": "击败敌人时，玩家获得一个额外的瓦尔之灵"}
 

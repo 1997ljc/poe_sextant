@@ -4,6 +4,7 @@ import tkinter as tk
 import tkinter.filedialog as tkf
 import json
 import os
+import traditional_chinese
 
 
 def set_window(width, height, window, root):
@@ -214,7 +215,8 @@ def Global_checkbuttons(root, choose_server_window):
     Global_NINJA_Data_Url = "https://poe.ninja/api/data/currencyoverview?league=Affliction&type=Currency"
     global_server_compass_data = gsp.load_TFTdata_from_github(Global_TFT_Data_Url)
     choose_server_window.destroy()
-    gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, gsp.compass_english2chinese), root)
+    # gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, gsp.compass_english2chinese), root)
+    gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, traditional_chinese.compass_english2tradtional_chinese), root)
 
 
 def Tencent_checkbuttons(root, choose_server_window):
@@ -232,6 +234,10 @@ def None_checkbuttons(root, choose_server_window):
     for english, chinese in gsp.compass_english2chinese.items():
         null_compass_price_dir[chinese] = 0
     gen_checkbuttons_for_all_compass(null_compass_price_dir, root)
+    # 繁体中文
+    # for english, chinese in traditional_chinese.compass_english2tradtional_chinese.items():
+    #     null_compass_price_dir[chinese] = 0
+    # gen_checkbuttons_for_all_compass(null_compass_price_dir, root)
 
 
 # todo
@@ -266,6 +272,8 @@ if __name__ == "__main__":
     root = tk.Tk()
     root.title("Checkbutton Example")
     root.geometry("300x400")  # 设置窗口大小
-    gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, gsp.compass_english2chinese), root)
-#   gen_checkbuttons_for_all_compass(tsp.Tencent_compass_data_alias(tencent_compass_data, tsp.compass_list_all), root)
+    gen_checkbuttons_for_all_compass(tsp.Tencent_compass_data_alias(tencent_compass_data, tsp.compass_list_all), root)
+    # 繁体中文
+    #gen_checkbuttons_for_all_compass(gsp.Global_compass_data_alias(global_server_compass_data, gsp.compass_english2chinese), root)
+
     root.mainloop()
